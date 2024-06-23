@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VolunteerConnect - Organisations</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="organisations.html">Organisations</a></li>
+                    <li><a href="loginsignup.html">Login/Sign Up</a></li>
+                    <li><a href="messages.html">Messages</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Organisations</h1>
+    </section>
+
+    <section class="organisations">
+        <h1>Volunteer Organisations</h1>
+        <p>At VolunteerConnect, we showcase many different organisations committed to various causes. Using this website, you can view the different organisations, learn about their missions through their posts, and stay updated on upcoming events. You can also follow organisations to keep updated.</p>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" onkeyup="filterOrganisations()" placeholder="Search for organisations...">
+            <button onclick="sortOrganisations('default')">Default</button>
+            <button onclick="sortOrganisations('asc')">A-Z</button>
+            <button onclick="sortOrganisations('desc')">Z-A</button>
+        </div>
+
+        <div class="row" id="organisationList">
+            <div class="organisation-col" data-order="1">
+                <h3>Volunteer Australia</h3>
+                <p>National peak body for volunteering, providing resources, support, and advocacy to ensure effective volunteering across Australia.</p>
+            </div>
+            <div class="organisation-col" data-order="2">
+                <h3>Red Cross</h3>
+                <p>Provides a wide range of humanitarian services including disaster response, blood donation, and community services.</p>
+            </div>
+            <div class="organisation-col" data-order="3">
+                <h3>Meals on Wheels</h3>
+                <p>Delivers nutritious meals to individuals who are unable to prepare their own, helping to support independence and well-being.</p>
+            </div>
+            <div class="organisation-col" data-order="4">
+                <h3>Conservation Volunteers</h3>
+                <p>Engages volunteers in environmental and conservation projects, including habitat restoration and wildlife conservation.</p>
+            </div>
+            <div class="organisation-col" data-order="5">
+                <h3>St John Ambulance</h3>
+                <p>Provides first aid training, services, and emergency response, supporting communities with vital health and emergency services.</p>
+            </div>
+            <div class="organisation-col" data-order="6">
+                <h3>Lifeline Australia</h3>
+                <p>Offers crisis support and suicide prevention services through a 24/7 helpline, ensuring immediate help for those in need.</p>
+            </div>
+            <div class="organisation-col" data-order="7">
+                <h3>The Smith Family</h3>
+                <p>A national children's charity focused on improving educational outcomes for disadvantaged Australian children.</p>
+            </div>
+            <div class="organisation-col" data-order="8">
+                <h3>Oxfam Australia</h3>
+                <p>Part of a global movement to end poverty, providing development programs, advocacy, and humanitarian aid.</p>
+            </div>
+            <div class="organisation-col" data-order="9">
+                <h3>Salvation Army</h3>
+                <p>Provides social services including homelessness support, addiction recovery, and emergency relief across Australia.</p>
+            </div>
+            <div class="organisation-col" data-order="10">
+                <h3>Make-A-Wish</h3>
+                <p>Grants life-changing wishes to children with critical illnesses, bringing hope, strength, and joy.</p>
+            </div>
+            <div class="organisation-col" data-order="11">
+                <h3>Cancer Council</h3>
+                <p>Leading independent cancer charity, offering support, prevention programs, and funding for cancer research.</p>
+            </div>
+            <div class="organisation-col" data-order="12">
+                <h3>Animals Australia</h3>
+                <p>Dedicated to animal welfare and advocacy, working to end animal cruelty and promote ethical treatment of animals.</p>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button onclick="firstPage()" id="firstBtn">First</button>
+            <button onclick="prevPage()" id="prevBtn">Previous</button>
+            <span id="pageIndicator"></span>
+            <button onclick="nextPage()" id="nextBtn">Next</button>
+            <button onclick="lastPage()" id="lastBtn">Last</button>
+        </div>
+    </section>
+
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>VolunteerConnect is a website created by current IT students attending Adelaide University. It was created in 2024 to bring people together by helping them discover new ways they could make the world a better place through volunteering. The website also caters to organisations by allowing them to reach more people, gather more members, and communicate effectively with those members.</p>
+    </section>
+
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+
+        // Pagination and sorting script
+        let orgList = Array.from(document.querySelectorAll('.organisation-col'));
+        let currentPage = 1;
+        const itemsPerPage = 4;
+        const defaultOrder = orgList.map(org => org.cloneNode(true));
+        let currentOrder = 'default';
+        let filteredList = orgList;
+
+        function displayPage(page, list) {
+            list = list || filteredList;
+            const container = document.getElementById('organisationList');
+            container.innerHTML = '';
+            const start = (page - 1) * itemsPerPage;
+            const end = Math.min(start + itemsPerPage, list.length);
+            for (let i = start; i < end; i++) {
+                container.appendChild(list[i]);
+            }
+            document.getElementById('prevBtn').disabled = page === 1;
+            document.getElementById('nextBtn').disabled = page >= Math.ceil(list.length / itemsPerPage);
+            document.getElementById('firstBtn').disabled = page === 1;
+            document.getElementById('lastBtn').disabled = page >= Math.ceil(list.length / itemsPerPage);
+            document.getElementById('pageIndicator').innerText = `Page ${page} of ${Math.ceil(list.length / itemsPerPage)}`;
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(filteredList.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        }
+
+        function firstPage() {
+            currentPage = 1;
+            displayPage(currentPage);
+        }
+
+        function lastPage() {
+            currentPage = Math.ceil(filteredList.length / itemsPerPage);
+            displayPage(currentPage);
+        }
+
+        function filterOrganisations() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toUpperCase();
+            filteredList = orgList.filter(org => {
+                const title = org.querySelector('h3').innerText.toUpperCase();
+                const text = org.querySelector('p').innerText.toUpperCase();
+                return title.includes(filter) || text.includes(filter);
+            });
+            currentPage = 1;
+            displayPage(currentPage);
+        }
+
+        function sortOrganisations(order) {
+            if (order === 'asc') {
+                filteredList.sort((a, b) => a.querySelector('h3').innerText.localeCompare(b.querySelector('h3').innerText));
+            } else if (order === 'desc') {
+                filteredList.sort((a, b) => b.querySelector('h3').innerText.localeCompare(a.querySelector('h3').innerText));
+            } else {
+                filteredList = defaultOrder.slice();
+            }
+            currentPage = 1;
+            displayPage(currentPage);
+        }
+
+        // Initialize the first page display
+        displayPage(currentPage);
+    </script>
+</body>
+</html>

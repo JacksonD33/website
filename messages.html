@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VolunteerConnect - Messages</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png" alt="VolunteerConnect Logo"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="organisations.html">Organisations</a></li>
+                    <li><a href="loginsignup.html">Login/Sign Up</a></li>
+                    <li><a href="messages.html">Messages</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Messages</h1>
+    </section>
+
+    <!-- Messages Section -->
+    <section class="messages-page">
+        <div class="contacts-panel">
+            <h2>Contacts</h2>
+            <div class="contacts" id="contactsList">
+                <!-- Contacts will be dynamically added here -->
+            </div>
+            <div class="add-contact">
+                <input type="text" id="newContactName" placeholder="New Contact Name" />
+                <button onclick="addContact()">Add Contact</button>
+            </div>
+        </div>
+        <div class="messages-container">
+            <div class="message-header">
+                <h3 id="contactName">Select a Contact</h3>
+            </div>
+            <div class="message-box">
+                <div class="messages" id="messageList">
+                    <!-- Messages will appear here -->
+                </div>
+                <div class="message-input">
+                    <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="checkEnter(event)" />
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>VolunteerConnect is a platform created to connect volunteers with organisations in need. Our mission is to make volunteering accessible and impactful for everyone.</p>
+        <div class="icons">
+            <i class="fa fa-facebook"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-instagram"></i>
+            <i class="fa fa-linkedin"></i>
+        </div>
+    </section>
+
+    <!-- JavaScript for Message Functionality -->
+    <script>
+        let contacts = [];
+        let currentContactIndex = null;
+        let messages = {};
+
+        function addContact() {
+            const contactName = document.getElementById("newContactName").value.trim();
+            if (contactName && !contacts.includes(contactName)) {
+                contacts.push(contactName);
+                messages[contactName] = [];
+                updateContactsList();
+                document.getElementById("newContactName").value = "";
+            }
+        }
+
+        function updateContactsList() {
+            const contactsList = document.getElementById("contactsList");
+            contactsList.innerHTML = '';
+            contacts.forEach((contact, index) => {
+                const contactElement = document.createElement("div");
+                contactElement.className = "contact";
+                contactElement.innerHTML = `<p onclick="switchContact(${index})">${contact}</p>`;
+                contactsList.appendChild(contactElement);
+            });
+        }
+
+        function switchContact(index) {
+            currentContactIndex = index;
+            const contactName = contacts[currentContactIndex];
+            const messageList = document.getElementById("messageList");
+            messageList.innerHTML = '';
+            messages[contactName].forEach(message => {
+                const messageElement = document.createElement("div");
+                messageElement.className = "message";
+                messageElement.innerHTML = `<p>${message}</p>`;
+                messageList.appendChild(messageElement);
+            });
+            document.getElementById("contactName").innerText = contactName;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const messageText = messageInput.value.trim();
+            if (messageText && currentContactIndex !== null) {
+                const contactName = contacts[currentContactIndex];
+                messages[contactName].push(messageText);
+
+                const messageElement = document.createElement("div");
+                messageElement.className = "message";
+                messageElement.innerHTML = `<p>${messageText}</p>`;
+                document.getElementById("messageList").appendChild(messageElement);
+
+                messageInput.value = "";
+                document.getElementById("messageList").scrollTop = document.getElementById("messageList").scrollHeight;
+            }
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+
+        // Add initial contact for demonstration
+        addContact("Organisation One");
+    </script>
+
+</body>
+</html>

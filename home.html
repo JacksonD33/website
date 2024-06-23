@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VolunteerConnect - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <section class="header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png" alt="VolunteerConnect Logo"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="organisations.html">Organisations</a></li>
+                    <li><a href="loginsignup.html">Login/Sign Up</a></li>
+                    <li><a href="messages.html">Messages</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <div class="text-box">
+            <h1>Connecting Volunteers and Organisations</h1>
+            <p>Join us in making a difference. Discover new opportunities to volunteer and connect with organisations that need your help.</p>
+            <a href="organisations.html" class="hero-btn">Find Opportunities</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us">
+        <h1>About Us</h1>
+        <p>VolunteerConnect is dedicated to bridging the gap between volunteers and organisations. Our platform makes it easier for individuals to find meaningful volunteer opportunities and for organisations to connect with passionate people ready to make a difference.</p>
+    </section>
+
+    <!-- Featured Organisations Section -->
+    <section class="featured">
+        <h1>Featured Organisations</h1>
+        <p>Explore some of our highlighted organisations that are making significant impacts in their communities.</p>
+        <div class="row">
+            <div class="featured-col">
+                <img src="images/org1.png" alt="Organisation 1">
+                <h3>Red Cross</h3>
+                <p>Provides a wide range of humanitarian services including disaster response, blood donation, and community services.</p>
+            </div>
+            <div class="featured-col">
+                <img src="images/org2.jpg" alt="Organisation 2">
+                <h3>The Smith Family</h3>
+                <p>A national children's charity focused on improving educational outcomes for disadvantaged Australian children.</p>
+            </div>
+            <div class="featured-col">
+                <img src="images/org3.png" alt="Organisation 3">
+                <h3>Salvation Army</h3>
+                <p>Provides social services including homelessness support, addiction recovery, and emergency relief across Australia.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h1>What Our Volunteers Say</h1>
+        <p>Hear from some of our amazing volunteers about their experiences with VolunteerConnect.</p>
+        <div class="row">
+            <div class="testimonial-col">
+                <img src="images/user1.jpg" alt="User 1">
+                <div>
+                    <h3>Jane Doe</h3>
+                    <p>"VolunteerConnect helped me find the perfect opportunity to give back to my community."</p>
+                </div>
+            </div>
+            <div class="testimonial-col">
+                <img src="images/user2.jpg" alt="User 2">
+                <div>
+                    <h3>John Smith</h3>
+                    <p>"A fantastic platform for connecting volunteers with causes that matter to them."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>VolunteerConnect is a platform created to connect volunteers with organisations in need. Our mission is to make volunteering accessible and impactful for everyone.</p>
+        <div class="icons">
+            <i class="fa fa-facebook"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-instagram"></i>
+            <i class="fa fa-linkedin"></i>
+        </div>
+    </section>
+
+    <!-- JavaScript for Navigation Menu -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+    </script>
+
+</body>
+</html>
